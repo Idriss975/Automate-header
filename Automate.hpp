@@ -2,24 +2,26 @@
 
 #include <vector>
 #include <string>
-using namespace std;
+#include <iostream>
 
 class Automate {
 public:
-	vector<char> Alphabet;
-	vector<int> Etats;
+	std::vector<char> Alphabet;
+	std::vector<int> Etats;
 	int Etat_I;
-	vector<int> Etat_F;
-	vector<vector<int>> Tab_Tr;
+	std::vector<int> Etat_F;
+	std::vector<std::vector<int>> Tab_Tr;
 	
-    Automate(vector<char> A, vector<int> E, int EI, vector<int> EF, vector<vector<int>> TT);
+    Automate(std::vector<char> A, std::vector<int> E, int EI, std::vector<int> EF, std::vector<std::vector<int>> TT);
 
 	int Afficher_q0() const;
-	string Afficher_Etat_Final() const;
-	string Afficher_Alphabets() const;
-	string Afficher_Etats() const;
-	string Afficher_Transitions() const;
+	std::string Afficher_Etat_Final() const;
+	std::string Afficher_Alphabets() const;
+	std::string Afficher_Etats() const;
+	std::string Afficher_Transitions() const;
 	int Existe_Trans(int EtatD, char sysm) const;
-	bool is_final(int E);
-	bool Message_valide(string m) const;
+	bool is_final(int E) const;
+	bool Message_valide(std::string m) const;
 };
+
+std::ostream& operator<<(std::ostream& O, const Automate& A);
