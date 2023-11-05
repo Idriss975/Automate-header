@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
+#include <ostream>
 
 class Automate {
 	/// @brief vector of alphabets in automata
