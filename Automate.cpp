@@ -72,7 +72,7 @@ int Automate::Existe_Trans(int EtatD, char sysm) const
 	return Tab_Tr[_Index_ED][_Index_A];
 }
 
-bool Automate::is_final(int E) const
+bool Automate::isFinalState(int E) const
 {
 	for (const int& i : Etat_F)
 		if (i == E)
@@ -80,7 +80,7 @@ bool Automate::is_final(int E) const
 	return false;
 }
 
-bool Automate::Message_valide(std::string m) const
+bool Automate::isValidMessage(std::string m) const
 {
 	int Etat = Etat_I;
 	int Next_Etat;
