@@ -17,6 +17,7 @@ class Automate {
 	std::vector<std::vector<int>> Tab_Tr;
 
 public:
+	Automate();
 	/// @brief Automata Constructor
 	/// @param A vector of alphabets in utomata
 	/// @param E vector of states
@@ -27,19 +28,19 @@ public:
 
 	/// @brief getter for initial state
 	/// @return initial state of automata
-	int Afficher_q0() const;
+	int Get_q0() const;
 	/// @brief getter for final state
 	/// @return Final state of automata
-	std::string Afficher_Etat_Final() const;
+	std::string Get_Etat_Final() const;
 	/// @brief Lists Alphabets
 	/// @return Alphabets of automata
-	std::string Afficher_Alphabets() const;
+	std::string Get_Alphabets() const;
 	/// @brief Lists states
 	/// @return states of automata
-	std::string Afficher_Etats() const;
+	std::string Get_Etats() const;
 	/// @brief Lists Transitions in a Matrix format
 	/// @return transitions (-1 if no transition)
-	std::string Afficher_Transitions() const;
+	std::string Get_Transitions() const;
 	/// @brief Shows next State based on transition from alphabet and beginning state
 	/// @param EtatD Starting state
 	/// @param sysm Alphabet
@@ -53,6 +54,8 @@ public:
 	/// @param m message
 	/// @return true if message is valid
 	bool isValidMessage(std::string m) const;
+
+	Automate Complement();
 };
 
 std::ostream& operator<<(std::ostream& O, const Automate& A);
