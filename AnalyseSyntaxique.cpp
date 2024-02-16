@@ -29,3 +29,16 @@ std::string Variable_terminale::toString() const
 {
     return std::string() + this -> val;
 }
+
+Variable_non_terminale::Variable_non_terminale(char valeur, Regle* R) noexcept(false)
+{
+    if (R == NULL)
+        throw InvalidVariable("argument R should not be NULL");
+    
+    this -> val = valeur;
+    this -> Right = R;   
+}
+std::string Variable_non_terminale::toString() const
+{
+    return std::string() + this-> val;
+}
