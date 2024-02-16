@@ -10,8 +10,6 @@
 *		https://github.com/Idriss975/Automate-header
 */
 
-Automate::Automate() {}
-
 Automate::Automate(std::vector<char> A, std::vector<int> E, int EI, std::vector<int> EF, std::vector<std::vector<int>> TT):
 Alphabet(A), Etats(E), Etat_I(EI), Etat_F(EF), Tab_Tr(TT)
 {}

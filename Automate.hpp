@@ -27,7 +27,7 @@ class Automate {
 	std::vector<std::vector<int>> Tab_Tr;
 
 public:
-	Automate();
+	Automate() = default;
 	/// @brief Automata Constructor
 	/// @param A vector of alphabets in utomata
 	/// @param E vector of states

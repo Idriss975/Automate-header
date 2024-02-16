@@ -30,7 +30,8 @@ class InvalidVariable: public std::runtime_error
 {
 
 public:
-    InvalidVariable(const char* m) : std::runtime_error(m) {}
+    InvalidVariable(const char* m) : std::runtime_error(m) 
+    {}
 };
 
 /// @brief Abstract class for Variable_terminale & Variable_non_terminale
@@ -44,6 +45,7 @@ public:
 class Variable_terminale : public Variable_Lexicale
 {
 public:
+    Variable_terminale() = default;
     Variable_terminale(char valeur);
     std::string toString() const;
 };
@@ -51,11 +53,10 @@ public:
 class Variable_non_terminale : public Variable_Lexicale
 {
 public:
-    Regle* Regle;
+    Regle* Right;
 
-    Variable_non_terminale(char valeur) noexcept(false); // throws InvalidVariable
-    std::string toString() const; 
-    
+    Variable_non_terminale(char valeur, Regle* R) noexcept(false); // throws InvalidVariable
+    std::string toString() const;    
 };
 
 class Regle

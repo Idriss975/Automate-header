@@ -18,3 +18,14 @@
 *           https://github.com/Idriss975/Automate-header
 *
 */
+
+
+Variable_terminale::Variable_terminale(char valeur) 
+{
+    this -> val = valeur;
+}
+
+std::string Variable_terminale::toString() const
+{
+    return std::string() + this -> val;
+}
