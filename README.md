@@ -8,13 +8,13 @@
 - [x] Check if message is valid with automata
 
 #### LL
-- [ ] Create AnalyseSyntaxique
+- [x] Create header file
 - [ ] Gerer Recursivite a gauche
 - [ ] Gerer Factorisation a gauche
 - [ ] Nullable method
 - [ ] Premier method
 - [ ] Suivant method
-- [ ] Tableau syntaxiue
+- [ ] Tableau syntaxique
 
 #### Derivation LL
 - [ ] Derivation par depilage

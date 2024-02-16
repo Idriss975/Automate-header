@@ -26,6 +26,18 @@
 #include <array>
 #include <unordered_set>
 
+namespace std
+{
+  template<>
+    struct hash<Variable_terminale>
+    {
+      size_t
+      operator()(const Variable_terminale & obj) const
+      {
+        return hash<int>()(obj.val);
+      }
+    };
+}
 class InvalidVariable: public std::runtime_error
 {
 
@@ -48,6 +60,7 @@ public:
     Variable_terminale() = default;
     Variable_terminale(char valeur);
     std::string toString() const;
+    bool operator ==(const Variable_terminale & Vt) const;
 };
 
 class Variable_non_terminale : public Variable_Lexicale
@@ -55,8 +68,10 @@ class Variable_non_terminale : public Variable_Lexicale
 public:
     Regle* Right;
 
+    Variable_non_terminale() = default;
     Variable_non_terminale(char valeur, Regle* R) noexcept(false); // throws InvalidVariable
-    std::string toString() const;    
+    std::string toString() const;
+    bool operator ==(const Variable_non_terminale & Vn) const;
 };
 
 class Regle
@@ -68,8 +83,8 @@ public:
     std::vector<Variable_Lexicale> Partie_droite;
 
     Regle() = default;
-    Regle(Variable_non_terminale left, std::vector<Variable_terminale> right, bool is_null=false);
-    Regle(std::string left, std::vector<Variable_terminale> right, bool is_null=false);
+    Regle(Variable_non_terminale left, std::vector<Variable_Lexicale> right, bool is_null=false);
+    Regle(char left, std::vector<std::string> right, bool is_null=false);
     
     bool Recursive_aGauche() const;
     void Eliminer_Recursivite_aGauche();
