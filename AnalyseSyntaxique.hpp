@@ -26,18 +26,7 @@
 #include <array>
 #include <unordered_set>
 
-namespace std
-{
-  template<>
-    struct hash<Variable_terminale>
-    {
-      size_t
-      operator()(const Variable_terminale & obj) const
-      {
-        return hash<int>()(obj.val);
-      }
-    };
-}
+
 class InvalidVariable: public std::runtime_error
 {
 
@@ -61,15 +50,25 @@ public:
     Variable_terminale(char valeur);
     std::string toString() const;
     bool operator ==(const Variable_terminale & Vt) const;
+
+    struct HashFunction
+    {
+        size_t operator()(const Variable_terminale& Vt) const
+        {
+            return std::hash<int>()(Vt.val);
+        }
+    };
 };
 
+class Regle;
 class Variable_non_terminale : public Variable_Lexicale
 {
 public:
     Regle* Right;
 
     Variable_non_terminale() = default;
-    Variable_non_terminale(char valeur, Regle* R) noexcept(false); // throws InvalidVariable
+    Variable_non_terminale(char valeur);
+    Variable_non_terminale(char valeur, Regle* R); // throws InvalidVariable
     std::string toString() const;
     bool operator ==(const Variable_non_terminale & Vn) const;
 };
@@ -80,10 +79,10 @@ private:
     bool is_nullable;
 public:
     Variable_non_terminale Partie_gauche;
-    std::vector<Variable_Lexicale> Partie_droite;
+    std::vector<std::vector<Variable_Lexicale>> Partie_droite;
 
     Regle() = default;
-    Regle(Variable_non_terminale left, std::vector<Variable_Lexicale> right, bool is_null=false);
+    Regle(Variable_non_terminale left, std::vector<std::vector<Variable_Lexicale>> right, bool is_null=false);
     Regle(char left, std::vector<std::string> right, bool is_null=false);
     
     bool Recursive_aGauche() const;
@@ -94,7 +93,20 @@ public:
     bool Nullable() const;
     std::unordered_set<Variable_terminale> Premier() const;
 
+    void Ajouter_OU(std::vector<Variable_Lexicale> r);
+
     std::string toString() const;
+};
+
+/*
+template<size_t NB_Vn, size_t NB_Vt>
+class Tableau_analyse
+{
+public:
+    std::array<Variable_non_terminale, NB_Vn> Vn;
+    std::array<Variable_terminale, NB_Vt> Vt;
+
+    Tableau_analyse() = default;
 };
 
 template<size_t NB_Vn, size_t NB_Vt>
@@ -107,7 +119,7 @@ public:
     Variable_non_terminale* Axiome;
 
     Grammaire() = default;
-    Grammaire(std::array<Regle, NB_Vn> R, std::char Axiome);
+    Grammaire(std::array<Regle, NB_Vn> R, char Axiome);
     Grammaire(std::array<Regle, NB_Vn> R, Variable_non_terminale* Axiome);
 
     bool Recursive_aGauche() const;
@@ -120,12 +132,6 @@ public:
     std::string toString() const;
 };
 
-template<size_t NB_Vn, size_t NB_Vt>
-class Tableau_analyse
-{
-public:
-    std::array<Variable_non_terminale, NB_Vn> Vn;
-    std::array<Variable_terminale, NB_Vt> Vt;
+*/
 
-    Tableau_analyse() = default;
-};
+

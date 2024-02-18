@@ -35,13 +35,15 @@ bool Variable_terminale::operator==(const Variable_terminale & Vt) const
     return this -> val == Vt.val;
 }
 
-Variable_non_terminale::Variable_non_terminale(char valeur, Regle* R) noexcept(false)
+
+Variable_non_terminale::Variable_non_terminale(char valeur)
 {
-    if (R == NULL)
-        throw InvalidVariable("argument R should not be NULL");
-    
     this -> val = valeur;
-    this -> Right = R;   
+}
+Variable_non_terminale::Variable_non_terminale(char valeur, Regle* R)
+{
+    this -> val = valeur;
+    this -> Right = R;
 }
 std::string Variable_non_terminale::toString() const
 {
@@ -52,27 +54,30 @@ bool Variable_non_terminale::operator==(const Variable_non_terminale & Vn) const
     return this->val == Vn.val;
 }
 
-Regle::Regle(Variable_non_terminale left, std::vector<std::vector<Variable_Lexicale>> right, bool is_null=false)
+Regle::Regle(Variable_non_terminale left, std::vector<std::vector<Variable_Lexicale>> right, bool is_null)
 {
     this -> Partie_gauche = left;
+    this -> Partie_gauche.Right = this;
     this -> Partie_droite = right;
     this -> is_nullable = is_null;
 }
-Regle::Regle(char left, std::vector<std::string> right, bool is_null=false)
+Regle::Regle(char left, std::vector<std::string> right, bool is_null)
 {
     this -> Partie_gauche = Variable_non_terminale(left, this);
-    std::vector<std::vector<Variable_Lexicale>> r;
+
+    Partie_droite = std::vector<std::vector<Variable_Lexicale>>(right.size());
+    this -> is_nullable = is_null;
+    
     for (size_t i = 0; i < right.size(); i++)
     {
-        for (size_t j = 0; j < right[i].size(); j++)           
+        for (size_t j = 0; j < right[i].size(); j++)
         {
-            if(std::isupper(right[i][j]))
-                Partie_droite[i].push_back(Variable_non_terminale(right[i][j],this));
+            if (std::isupper(right[i][j]))
+                Partie_droite[i].push_back(Variable_non_terminale(right[i][j]));
             else
                 Partie_droite[i].push_back(Variable_terminale(right[i][j]));
         }
     }
-    //TODO: Check if i'm not fucking arround ^
 }
 
 bool Regle::Recursive_aGauche() const
@@ -100,8 +105,13 @@ std::unordered_set<Variable_terminale> Regle::Premier() const
 {
         throw std::logic_error("Regle::Premier() not yet implemented.");
 
-    std::unordered_set<Variable_terminale> Outp;
+    std::unordered_set<Variable_terminale, Variable_terminale::HashFunction> Outp;
     //TODO
+}
+
+void Ajouter_OU(std::vector<Variable_Lexicale> r)
+{
+    throw std::logic_error("Regle::Premier() not yet implemented.");
 }
 
 std::string Regle::toString() const
